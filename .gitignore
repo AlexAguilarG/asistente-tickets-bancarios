@@ -1,0 +1,41 @@
+﻿# Credenciales y variables de entorno
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editores y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Registros y bases de datos locales
+*.log
+*.db
+*.sqlite
+*.sqlite3
+
+# MLflow y cachés de modelos
+mlruns/
+.cache/
+.huggingface/
+
+# Datos locales
+data/
+datasets/

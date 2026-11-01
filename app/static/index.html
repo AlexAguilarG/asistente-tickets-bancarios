@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Demostrador académico de clasificación de tickets bancarios.">
+  <title>Asistente de tickets | Demo</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand-mark" aria-hidden="true">AI</div>
+      <div>
+        <p class="eyebrow">PROTOTIPO ACADÉMICO · PLN</p>
+        <h1>Asistente de tickets</h1>
+      </div>
+      <span id="api-status" class="status status-pending">Comprobando API…</span>
+    </header>
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">CLASIFICACIÓN DE INTENCIONES</p>
+        <h2>Convierte un mensaje en una sugerencia de clasificación.</h2>
+        <p class="muted">El modelo utiliza MiniLM multilingüe y Regresión Logística para sugerir una de 77 intenciones.</p>
+      </div>
+      <div class="model-chip">MiniLM + Logistic Regression</div>
+    </section>
+
+    <section class="panel">
+      <form id="ticket-form">
+        <label for="ticket-text">Mensaje de ejemplo</label>
+        <textarea id="ticket-text" name="text" minlength="3" maxlength="5000" required
+          placeholder="Ejemplo ficticio: Hice una transferencia y el destinatario todavía no recibe el dinero."></textarea>
+        <div class="form-footer">
+          <span id="char-count" class="muted">0 / 5000</span>
+          <button id="submit-button" type="submit">Clasificar ticket <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+      <p class="privacy-note"><strong>Importante:</strong> utiliza únicamente ejemplos ficticios. No escribas nombres, números de cuenta, tarjetas, teléfonos ni datos reales de clientes.</p>
+    </section>
+
+    <section id="result" class="result hidden" aria-live="polite">
+      <div class="result-heading">
+        <div>
+          <p class="eyebrow">RESULTADO DEL MODELO</p>
+          <h2 id="intent-name">—</h2>
+        </div>
+        <span id="decision-pill" class="decision-pill">—</span>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span>Confianza reportada</span><strong id="confidence">—</strong></div>
+        <div class="metric"><span>Umbral configurado</span><strong id="threshold">—</strong></div>
+        <div class="metric"><span>ID de intención</span><strong id="intent-id">—</strong></div>
+      </div>
+      <p id="review-note" class="review-note"></p>
+      <p id="priority-note" class="muted"></p>
+      <p id="disclaimer" class="disclaimer"></p>
+    </section>
+
+    <footer>
+      <p>Demostrador de clasificación. La prioridad no se automatiza y toda sugerencia requiere validación humana según las reglas operativas.</p>
+      <a href="/docs" target="_blank" rel="noopener">Documentación de la API ↗</a>
+    </footer>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>

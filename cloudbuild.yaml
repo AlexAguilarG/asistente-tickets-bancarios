@@ -1,0 +1,29 @@
+# Ejemplo de build y deploy desde Cloud Build. Sustituye las sustituciones
+# al ejecutar gcloud builds submit --config=cloudbuild.yaml --substitutions=...
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "${_IMAGE}", "."]
+  - name: gcr.io/cloud-builders/docker
+    args: ["push", "${_IMAGE}"]
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - "${_SERVICE}"
+      - --image
+      - "${_IMAGE}"
+      - --region
+      - "${_REGION}"
+      - --port
+      - "8080"
+      - --no-allow-unauthenticated
+      - --set-env-vars
+      - "CONFIDENCE_THRESHOLD=0.50,MODEL_DEVICE=cpu,HF_HUB_DISABLE_TELEMETRY=1"
+images:
+  - "${_IMAGE}"
+substitutions:
+  _REGION: us-central1
+  _REPOSITORY: asistente-tickets
+  _SERVICE: asistente-tickets
+  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/asistente-tickets/api:latest

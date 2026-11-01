@@ -1,0 +1,22 @@
+﻿{
+    "model_name":  "logistic_regression",
+    "exported_at_utc":  "2026-11-01T01:45:03.152560+00:00",
+    "source_artifact":  "models/logistic_regression_classifier.joblib",
+    "encoder_id":  "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "encoder_revision":  "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "number_of_intents":  77,
+    "embedding_normalized":  true,
+    "confidence_threshold_initial":  0.5,
+    "threshold_status":  "exploratory_not_calibrated_not_approved_for_production",
+    "priority_automation":  false,
+    "python_version":  "3.13.18",
+    "versions":  {
+                     "fastapi":  "0.141.1",
+                     "uvicorn":  "0.54.0",
+                     "sentence-transformers":  "5.7.0",
+                     "scikit-learn":  "1.6.1",
+                     "joblib":  "1.6.0",
+                     "numpy":  "2.1.3",
+                     "torch":  "2.11.0+cpu"
+                 }
+}

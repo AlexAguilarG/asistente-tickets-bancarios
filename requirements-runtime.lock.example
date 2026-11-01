@@ -1,0 +1,3 @@
+# Archivo de ejemplo, no es un lock válido.
+# El notebook notebooks/EXPORTAR_MODELO_DESDE_COLAB.ipynb genera
+# requirements-runtime.lock con las versiones concretas del entorno Colab.
