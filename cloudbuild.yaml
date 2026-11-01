@@ -1,29 +1,57 @@
-# Ejemplo de build y deploy desde Cloud Build. Sustituye las sustituciones
-# al ejecutar gcloud builds submit --config=cloudbuild.yaml --substitutions=...
+# Pipeline propuesto: construir, publicar y desplegar el contenedor.
+# No se ha ejecutado contra un proyecto real de Google Cloud.
+
 steps:
   - name: gcr.io/cloud-builders/docker
-    args: ["build", "-t", "${_IMAGE}", "."]
+    args:
+      - build
+      - --build-arg
+      - PRELOAD_ENCODER=true
+      - -t
+      - ${_IMAGE}
+      - .
+
   - name: gcr.io/cloud-builders/docker
-    args: ["push", "${_IMAGE}"]
+    args:
+      - push
+      - ${_IMAGE}
+
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
     args:
       - run
       - deploy
-      - "${_SERVICE}"
+      - ${_SERVICE}
       - --image
-      - "${_IMAGE}"
+      - ${_IMAGE}
       - --region
-      - "${_REGION}"
+      - ${_REGION}
       - --port
       - "8080"
+      - --cpu
+      - "2"
+      - --memory
+      - 2Gi
+      - --concurrency
+      - "5"
+      - --max
+      - "2"
+      - --min
+      - "0"
+      - --timeout
+      - "300"
       - --no-allow-unauthenticated
       - --set-env-vars
-      - "CONFIDENCE_THRESHOLD=0.50,MODEL_DEVICE=cpu,HF_HUB_DISABLE_TELEMETRY=1"
+      - CONFIDENCE_THRESHOLD=0.50,MODEL_DEVICE=cpu,HF_HUB_DISABLE_TELEMETRY=1
+
 images:
-  - "${_IMAGE}"
+  - ${_IMAGE}
+
 substitutions:
-  _REGION: us-central1
+  _REGION: northamerica-south1
   _REPOSITORY: asistente-tickets
   _SERVICE: asistente-tickets
-  _IMAGE: us-central1-docker.pkg.dev/$PROJECT_ID/asistente-tickets/api:latest
+  _IMAGE: ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPOSITORY}/api:v1.0.0
+
+options:
+  dynamicSubstitutions: true
